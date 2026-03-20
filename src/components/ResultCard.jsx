@@ -1,5 +1,5 @@
-import { PROCS } from '../data/constants'
-import { scoreColor, scoreBg, typeColor, typeBg } from '../utils/helpers'
+import { PROCS } from "../data/constants";
+import { scoreColor, scoreBg, typeColor, typeBg } from "../utils/helpers";
 
 export default function ResultCard({ result, fund, index, onClick }) {
   return (
@@ -11,7 +11,10 @@ export default function ResultCard({ result, fund, index, onClick }) {
       <div className="score-badge">
         <div
           className="ring"
-          style={{ background: scoreBg(result.score), color: scoreColor(result.score) }}
+          style={{
+            background: scoreBg(result.score),
+            color: scoreColor(result.score),
+          }}
         >
           {result.score}
         </div>
@@ -19,20 +22,17 @@ export default function ResultCard({ result, fund, index, onClick }) {
       </div>
       <div className="result-body">
         <h3 className="result-short">{fund.n}</h3>
-        <p
-          className="result-full"
-          style={{ color: typeColor(fund.t) }}
-        >
+        <p className="result-full" style={{ color: typeColor(fund.t) }}>
           {fund.t}
         </p>
         <div className="result-reason">{result.reason}</div>
         <div className="result-procs">
           {fund.p.map((v, j) =>
-            v ? <span key={j}>{PROCS[j].split('–')[0].trim()}</span> : null
+            v ? <span key={j}>{PROCS[j].split("–")[0].trim()}</span> : null,
           )}
         </div>
       </div>
       <div className="result-arrow">→</div>
     </div>
-  )
+  );
 }
