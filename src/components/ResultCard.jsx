@@ -1,5 +1,6 @@
 import { PROCS } from "../data/constants";
 import { scoreColor, scoreBg, typeColor, typeBg } from "../utils/helpers";
+import { exportFundPdf } from "../utils/exportPdf";
 
 export default function ResultCard({ result, fund, index, onClick }) {
   return (
@@ -32,6 +33,13 @@ export default function ResultCard({ result, fund, index, onClick }) {
           )}
         </div>
       </div>
+      <button
+        className="card-pdf-btn"
+        title="Descargar PDF"
+        onClick={(e) => { e.stopPropagation(); exportFundPdf(result, fund); }}
+      >
+        ↓ PDF
+      </button>
       <div className="result-arrow">→</div>
     </div>
   );
