@@ -36,9 +36,12 @@ export default function ResultCard({ result, fund, index, onClick }) {
       <button
         className="card-pdf-btn"
         title="Descargar PDF"
-        onClick={(e) => { e.stopPropagation(); exportFundPdf(result, fund); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          exportFundPdf(result, fund);
+        }}
       >
-        ↓ PDF
+        ↓ DESCARGAR PDF
       </button>
       <div className="result-arrow">→</div>
     </div>
