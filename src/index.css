@@ -762,6 +762,28 @@ h3 {
   word-break: break-all;
 }
 
+.panel-web-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  background: var(--green-light);
+  border: 1px solid var(--green-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-dark);
+  text-decoration: none;
+  transition: background 0.15s;
+  word-break: normal;
+}
+.panel-web-banner:hover {
+  background: var(--green-accent);
+}
+
 /* ── NAV TABS ── */
 .nav-tabs {
   display: flex;

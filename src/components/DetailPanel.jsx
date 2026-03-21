@@ -37,6 +37,16 @@ export default function DetailPanel({ fund, closePanel }) {
     if (tab === "general")
       return (
         <>
+          {fund.web && (
+            <a
+              href={fund.web}
+              target="_blank"
+              rel="noreferrer"
+              className="panel-web-link panel-web-banner"
+            >
+              🌐 Visitar sitio oficial
+            </a>
+          )}
           <div className="panel-section">
             <div className="panel-section-title">Descripción</div>
             <div className="text">{fund.desc}</div>
@@ -44,6 +54,10 @@ export default function DetailPanel({ fund, closePanel }) {
           <div className="panel-section">
             <div className="panel-section-title">Objetivos</div>
             <div className="text">{fund.obj}</div>
+          </div>
+          <div className="panel-section">
+            <div className="panel-section-title">Entidad Gestora</div>
+            <div className="text">{fund.ent || "No disponible."}</div>
           </div>
           <div className="panel-section">
             <div className="panel-section-title">Ciclo GRD</div>
@@ -57,10 +71,22 @@ export default function DetailPanel({ fund, closePanel }) {
             <div className="panel-section-title">Actividades Apoyadas</div>
             <div className="text">{fund.act}</div>
           </div>
+          <div className="panel-section">
+            <div className="panel-section-title">Instrumentos de Financiación</div>
+            <div className="text">{fund.inst || "No especificado."}</div>
+          </div>
           <div className="info-grid" style={{ marginTop: 4 }}>
+            <div className="info-card">
+              <div className="dt">Monto Máximo</div>
+              <div className="dd">{fund.mon || "No especificado."}</div>
+            </div>
             <div className="info-card">
               <div className="dt">Vigencia</div>
               <div className="dd">{fund.vig}</div>
+            </div>
+            <div className="info-card">
+              <div className="dt">Capitalización</div>
+              <div className="dd">{fund.cap || "No especificado."}</div>
             </div>
             <div className="info-card">
               <div className="dt">Fecha de Creación</div>
