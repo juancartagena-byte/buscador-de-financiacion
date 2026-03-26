@@ -1,12 +1,49 @@
 import { funds } from "../data/funds";
 
-export function localSearch(query) {
-  const kw = query
+const STOPWORDS = new Set([
+  // Artículos
+  "el","la","los","las","un","una","unos","unas",
+  // Preposiciones
+  "a","al","ante","bajo","con","contra","de","del","desde","durante",
+  "en","entre","hacia","hasta","mediante","para","por","segun","sin",
+  "sobre","tras","versus","via",
+  // Conjunciones
+  "e","ni","o","u","pero","sino","aunque","porque","pues","que","si",
+  "como","cuando","donde","mientras","mas","mas","y",
+  // Pronombres y determinantes
+  "yo","tu","el","ella","ello","nosotros","vosotros","ellos","ellas",
+  "me","te","se","nos","os","le","les","lo","la","los","las",
+  "mi","mis","tu","tus","su","sus","nuestro","nuestra","nuestros","nuestras",
+  "este","esta","estos","estas","ese","esa","esos","esas",
+  "aquel","aquella","aquellos","aquellas","esto","eso","aquello",
+  // Verbos auxiliares y comunes
+  "ser","estar","haber","tener","hacer","poder","deber","querer",
+  "es","son","era","eran","fue","fueron","sea","sean",
+  "esta","estan","estaba","estaban","hay","hubo","ha","han","habia",
+  "tiene","tienen","tenia","tenian",
+  // Adverbios y otras palabras funcionales
+  "no","si","ya","aun","aun","tambien","tampoco","muy","mas","menos",
+  "bien","mal","asi","aqui","ahi","alla","aca","hoy","ayer","antes",
+  "despues","pronto","nunca","siempre","solo","solo","todo","toda",
+  "todos","todas","otro","otra","otros","otras","mismo","misma",
+  "cada","cualquier","cualquiera","algun","alguna","algunos","algunas",
+  "ningun","ninguna","poco","poca","mucho","mucha","tanto","tanta",
+  // Palabras muy genéricas en el contexto de búsqueda
+  "tipo","tipos","forma","formas","manera","maneras","vez","veces",
+  "caso","casos","parte","partes","manera","nivel","niveles",
+]);
+
+function tokenize(text) {
+  return text
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .split(/\s+/)
-    .filter((w) => w.length > 2);
+    .filter((w) => w.length > 2 && !STOPWORDS.has(w));
+}
+
+export function localSearch(query) {
+  const kw = tokenize(query);
 
   const scored = funds
     .map((f) => {

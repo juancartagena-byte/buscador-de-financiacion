@@ -1025,7 +1025,13 @@ h3 {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
+  table-layout: fixed;
 }
+.dash-table col.col-id       { width: 6%; }
+.dash-table col.col-nombre   { width: 36%; }
+.dash-table col.col-tipo     { width: 12%; }
+.dash-table col.col-monto    { width: 28%; }
+.dash-table col.col-vigencia { width: 18%; }
 .dash-table th {
   text-align: left;
   padding: 10px 14px;
@@ -1040,6 +1046,9 @@ h3 {
   padding: 12px 14px;
   border-bottom: 1px solid var(--border-light);
   color: var(--text);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  vertical-align: top;
 }
 .dash-table tr:hover td {
   background: var(--surface-alt);

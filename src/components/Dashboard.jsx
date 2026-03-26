@@ -439,6 +439,13 @@ export default function Dashboard({ openPanel }) {
           </div>
           <div className="dash-table-wrap">
             <table className="dash-table">
+              <colgroup>
+                <col className="col-id" />
+                <col className="col-nombre" />
+                <col className="col-tipo" />
+                <col className="col-monto" />
+                <col className="col-vigencia" />
+              </colgroup>
               <thead>
                 <tr>
                   <th>ID</th>
@@ -478,7 +485,7 @@ export default function Dashboard({ openPanel }) {
                         {f.t}
                       </span>
                     </td>
-                    <td style={{ whiteSpace: "nowrap" }}>{f.mon}</td>
+                    <td>{f.mon}</td>
                     <td>{f.vig}</td>
                   </tr>
                 ))}
