@@ -167,8 +167,8 @@ function buildGuideSection(g, hasFullGuide) {
 }
 
 function buildHtml(result, fund, g) {
-  const sc = scoreColor(result.score);
-  const sb = scoreBg(result.score);
+  const sc = scoreColor(result?.score ?? 0);
+  const sb = scoreBg(result?.score ?? 0);
   const tc = typeColor(fund.t);
   const tb = typeBg(fund.t);
   const date = new Date().toLocaleDateString("es-CO", {
@@ -253,6 +253,16 @@ function buildHtml(result, fund, g) {
            <a href="${escRaw(fund.web)}" class="link">${escRaw(fund.web)}</a>
          </div>`
       : "");
+
+  const matchBlock = result && result.score != null
+    ? `<div class="match-block">
+        <div class="score-ring">
+          <span>${result.score}</span>
+          <span class="score-ring-label">MATCH</span>
+        </div>
+        <div class="match-reason">${escRaw(result.reason)}</div>
+      </div>`
+    : "";
 
   return `<!DOCTYPE html>
 <html lang="es">
@@ -342,13 +352,7 @@ function buildHtml(result, fund, g) {
     ${fund.s && fund.s !== fund.n ? `<div class="fund-full-name">${escRaw(fund.s)}</div>` : ""}
   </div>
 
-  <div class="match-block">
-    <div class="score-ring">
-      <span>${result.score}</span>
-      <span class="score-ring-label">MATCH</span>
-    </div>
-    <div class="match-reason">${escRaw(result.reason)}</div>
-  </div>
+  ${matchBlock}
 
   ${section("General", generalContent)}
   ${section("Acceso y Elegibilidad", accesoContent)}

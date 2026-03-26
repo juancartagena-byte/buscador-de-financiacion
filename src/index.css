@@ -589,6 +589,23 @@ h3 {
 .panel-close:hover {
   background: #eee;
 }
+.panel-pdf-btn {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--green-border);
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.panel-pdf-btn:hover {
+  background: var(--green-accent);
+}
 
 /* Tag tipo badge */
 .tag-tipo {

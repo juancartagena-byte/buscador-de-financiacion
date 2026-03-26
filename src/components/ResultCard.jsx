@@ -7,7 +7,7 @@ export default function ResultCard({ result, fund, index, onClick }) {
     <div
       className="result-card"
       style={{ animationDelay: `${index * 0.06}s` }}
-      onClick={() => onClick(fund.id)}
+      onClick={() => onClick(fund.id, result)}
     >
       <div className="score-badge">
         <div

@@ -8,13 +8,16 @@ import { funds } from "./data/funds";
 export default function App() {
   const [page, setPage] = useState("busqueda");
   const [selectedFund, setSelectedFund] = useState(null);
+  const [selectedResult, setSelectedResult] = useState(null);
 
-  function openPanel(id) {
+  function openPanel(id, result = null) {
     setSelectedFund(funds.find((f) => f.id === id) || null);
+    setSelectedResult(result);
   }
 
   function closePanel() {
     setSelectedFund(null);
+    setSelectedResult(null);
   }
 
   return (
@@ -28,7 +31,7 @@ export default function App() {
       )}
 
       {selectedFund && (
-        <DetailPanel fund={selectedFund} closePanel={closePanel} />
+        <DetailPanel fund={selectedFund} result={selectedResult} closePanel={closePanel} />
       )}
     </>
   );

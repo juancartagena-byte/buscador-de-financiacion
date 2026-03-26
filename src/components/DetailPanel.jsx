@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PROCS, BENS, OBJS } from "../data/constants";
 import { guides } from "../data/guides";
 import { typeColor, typeBg } from "../utils/helpers";
+import { exportFundPdf } from "../utils/exportPdf";
 
 const TABS = [
   { k: "general", l: "General" },
@@ -12,7 +13,7 @@ const TABS = [
   { k: "legal", l: "Legal" },
 ];
 
-export default function DetailPanel({ fund, closePanel }) {
+export default function DetailPanel({ fund, result, closePanel }) {
   const [tab, setTab] = useState("general");
 
   useEffect(() => {
@@ -475,9 +476,18 @@ export default function DetailPanel({ fund, closePanel }) {
               {fund.n}
             </p>
           </div>
-          <button className="panel-close" onClick={closePanel}>
-            ×
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <button
+              className="panel-pdf-btn"
+              title="Descargar PDF"
+              onClick={() => exportFundPdf(result, fund)}
+            >
+              ↓ PDF
+            </button>
+            <button className="panel-close" onClick={closePanel}>
+              ×
+            </button>
+          </div>
         </div>
         <div style={{ padding: "0 28px" }}>
           <div className="panel-tabs">
