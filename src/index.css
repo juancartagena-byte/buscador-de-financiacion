@@ -646,6 +646,7 @@ h3 {
 .panel-section .text {
   font-size: 15px;
   line-height: 1.7;
+  white-space: pre-wrap;
 }
 
 .guide-status {
@@ -698,6 +699,102 @@ h3 {
   font-size: 14px;
   line-height: 1.7;
   color: #374151;
+}
+
+.guide-fechas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.guide-fechas-table th {
+  text-align: left;
+  padding: 8px 10px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-weight: 700;
+  border-bottom: 2px solid var(--green-border);
+}
+.guide-fechas-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  line-height: 1.5;
+  color: #374151;
+}
+.guide-fechas-table tr:last-child td {
+  border-bottom: none;
+}
+.guide-fechas-table td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--green-dark);
+}
+
+.guide-docs-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.guide-docs-list li {
+  font-size: 13px;
+  color: #374151;
+  padding: 7px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  line-height: 1.4;
+}
+.guide-docs-list li::before {
+  content: "📄 ";
+}
+
+/* Texto con saltos de línea preservados */
+.text.prewrap {
+  white-space: pre-wrap;
+}
+
+/* Checklist de documentos */
+.checklist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+.checklist-section-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-top: 10px;
+  margin-bottom: 2px;
+  padding-left: 2px;
+}
+.checklist-section-header:first-child {
+  margin-top: 0;
+}
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+}
+.checklist-box {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--green);
+  border-radius: 3px;
+  margin-top: 1px;
+  display: block;
 }
 
 .info-grid {

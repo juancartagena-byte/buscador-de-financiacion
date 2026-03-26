@@ -72,7 +72,9 @@ export default function DetailPanel({ fund, closePanel }) {
             <div className="text">{fund.act}</div>
           </div>
           <div className="panel-section">
-            <div className="panel-section-title">Instrumentos de Financiación</div>
+            <div className="panel-section-title">
+              Instrumentos de Financiación
+            </div>
             <div className="text">{fund.inst || "No especificado."}</div>
           </div>
           <div className="info-grid" style={{ marginTop: 4 }}>
@@ -85,12 +87,24 @@ export default function DetailPanel({ fund, closePanel }) {
               <div className="dd">{fund.vig}</div>
             </div>
             <div className="info-card">
+              <div className="dt">Modalidad de Acceso</div>
+              <div className="dd">{fund.modalidad || "No especificado."}</div>
+            </div>
+            <div className="info-card">
+              <div className="dt">Periodicidad</div>
+              <div className="dd">
+                {fund.periodicidad || "No especificado."}
+              </div>
+            </div>
+            <div className="info-card">
               <div className="dt">Capitalización</div>
               <div className="dd">{fund.cap || "No especificado."}</div>
             </div>
             <div className="info-card">
-              <div className="dt">Fecha de Creación</div>
-              <div className="dd">{fund.fecha || "No disponible."}</div>
+              <div className="dt">Creación</div>
+              <div className="dd">
+                {fund.creacion || fund.fecha || "No disponible."}
+              </div>
             </div>
           </div>
         </>
@@ -129,6 +143,161 @@ export default function DetailPanel({ fund, closePanel }) {
         return (
           <p style={{ color: "#999" }}>Guía no disponible para este fondo.</p>
         );
+
+      // Instructivo completo (nuevo esquema: g.estado existe)
+      if (g.estado !== undefined) {
+        const renderContact = () =>
+          g.con && g.con.startsWith("http") ? (
+            <a
+              href={g.con}
+              target="_blank"
+              rel="noreferrer"
+              className="panel-web-link"
+            >
+              {g.con}
+            </a>
+          ) : (
+            g.con || "No disponible."
+          );
+
+        const renderChecklist = (text) =>
+          text.split("\n").map((line, i) => {
+            if (!line.trim()) return null;
+            const isItem = line.trimStart().startsWith("[");
+            return (
+              <div
+                key={i}
+                className={
+                  isItem ? "checklist-item" : "checklist-section-header"
+                }
+              >
+                {isItem ? (
+                  <>
+                    <span className="checklist-box" />
+                    <span>{line.replace(/^\s*\[\s*\]\s*/, "")}</span>
+                  </>
+                ) : (
+                  line
+                )}
+              </div>
+            );
+          });
+
+        return (
+          <>
+            <div className="guide-status">
+              <span className="emoji">📡</span>
+              <div>
+                <div className="label">Estado</div>
+                <div className="value">{g.estado}</div>
+              </div>
+            </div>
+
+            {g.ciclo && (
+              <div className="panel-section">
+                <div className="panel-section-title">
+                  Ciclo de la convocatoria
+                </div>
+                <div className="text prewrap">{g.ciclo}</div>
+              </div>
+            )}
+
+            {g.eleg_org && (
+              <div className="panel-section">
+                <div className="panel-section-title">
+                  ✅ Elegibilidad de la organización
+                </div>
+                <div className="text prewrap">{g.eleg_org}</div>
+              </div>
+            )}
+
+            {g.eleg_proj && (
+              <div className="panel-section">
+                <div className="panel-section-title">
+                  🎯 Elegibilidad del proyecto
+                </div>
+                <div className="text prewrap">{g.eleg_proj}</div>
+              </div>
+            )}
+
+            {g.financiamiento && (
+              <div className="panel-section">
+                <div className="panel-section-title">💰 Financiamiento</div>
+                <div className="text prewrap">{g.financiamiento}</div>
+              </div>
+            )}
+
+            {g.duracion && (
+              <div className="panel-section">
+                <div className="panel-section-title">⏱️ Duración</div>
+                <div className="text prewrap">{g.duracion}</div>
+              </div>
+            )}
+
+            {g.proceso && (
+              <div className="panel-section">
+                <div className="panel-section-title">
+                  📋 Proceso de aplicación
+                </div>
+                <div className="text prewrap">{g.proceso}</div>
+              </div>
+            )}
+
+            {g.otros && (
+              <div className="panel-section">
+                <div className="panel-section-title">ℹ️ Otros requisitos</div>
+                <div className="text prewrap">{g.otros}</div>
+              </div>
+            )}
+
+            {g.fechas && (
+              <div className="panel-section">
+                <div className="panel-section-title">📅 Fechas clave</div>
+                {Array.isArray(g.fechas) ? (
+                  <table className="guide-fechas-table">
+                    <thead>
+                      <tr>
+                        <th>Fecha</th>
+                        <th>Hito</th>
+                        <th>Descripción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {g.fechas.map((f, i) => (
+                        <tr key={i}>
+                          <td>{f.fecha_clave}</td>
+                          <td>{f.hito_del_proceso}</td>
+                          <td>{f.descripcion}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <div className="text prewrap">{g.fechas}</div>
+                )}
+              </div>
+            )}
+
+            {g.checklist && (
+              <div className="panel-section">
+                <div className="panel-section-title">
+                  ☑️ Checklist de documentos
+                </div>
+                <div className="checklist-container">
+                  {renderChecklist(g.checklist)}
+                </div>
+              </div>
+            )}
+
+            <div className="info-card" style={{ marginTop: 16 }}>
+              <div className="dt">📞 Contacto / Sitio web</div>
+              <div className="dd">{renderContact()}</div>
+            </div>
+          </>
+        );
+      }
+
+      // Guía genérica (esquema anterior: g.est + g.pasos)
       return (
         <>
           <div className="guide-status">
@@ -138,6 +307,7 @@ export default function DetailPanel({ fund, closePanel }) {
               <div className="value">{g.est}</div>
             </div>
           </div>
+
           <div className="panel-section-title" style={{ marginBottom: 16 }}>
             Paso a paso
           </div>
@@ -150,6 +320,7 @@ export default function DetailPanel({ fund, closePanel }) {
               </div>
             </div>
           ))}
+
           <div
             className="info-grid"
             style={{
@@ -167,9 +338,23 @@ export default function DetailPanel({ fund, closePanel }) {
               <div className="dd">{g.dur}</div>
             </div>
           </div>
+
           <div className="info-card" style={{ marginTop: 12 }}>
-            <div className="dt">📞 Contacto</div>
-            <div className="dd">{g.con}</div>
+            <div className="dt">📞 Contacto / Sitio web</div>
+            <div className="dd">
+              {g.con && g.con.startsWith("http") ? (
+                <a
+                  href={g.con}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="panel-web-link"
+                >
+                  {g.con}
+                </a>
+              ) : (
+                g.con
+              )}
+            </div>
           </div>
         </>
       );
