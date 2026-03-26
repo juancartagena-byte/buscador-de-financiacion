@@ -17,12 +17,6 @@ export default function App() {
     setSelectedFund(null);
   }
 
-  // When opening panel from dashboard, switch to busqueda first
-  function openPanelFromDashboard(id) {
-    setPage("busqueda");
-    setTimeout(() => openPanel(id), 100);
-  }
-
   return (
     <>
       <Nav page={page} setPage={setPage} goHome={() => setSelectedFund(null)} />
@@ -30,7 +24,7 @@ export default function App() {
       {page === "busqueda" ? (
         <SearchPage openPanel={openPanel} />
       ) : (
-        <Dashboard openPanel={openPanelFromDashboard} />
+        <Dashboard openPanel={openPanel} />
       )}
 
       {selectedFund && (
